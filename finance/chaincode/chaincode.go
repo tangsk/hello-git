@@ -8,10 +8,10 @@ import (
 	"github.com/hyperledger/fabric/aberic/chaincode/go/finance/utils" //有
 )
 
-type Finance struct {
+type Experience struct {
 }
 
-func (t *Finance) Init(stub shim.ChaincodeStubInterface) peer.Response {
+func (t *Experience) Init(stub shim.ChaincodeStubInterface) peer.Response {
 	args := stub.GetStringArgs()
 	if len(args) != 0 {
 		return shim.Error("Parameter error while Init")
@@ -19,29 +19,29 @@ func (t *Finance) Init(stub shim.ChaincodeStubInterface) peer.Response {
 	return shim.Success(nil)
 }
 
-func (t *Finance) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+func (t *Experience) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	fn, args := stub.GetFunctionAndParameters()
 	switch fn {
-	case "loan": // 记录贷款数据
-		return loan(stub, args)
+	case "work": // 记录工作
+		return work(stub, args)
 	default:
 		return shim.Error("Unknown func type while Invoke, please check")
 	}
 }
 
 // 记录贷款数据
-func loan(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+func work(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 	name, err := utils.GetCreatorName(stub)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	err = bean.Loan(stub, args, name)
+	err = bean.Work(stub, args, name)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	return shim.Success([]byte("记录贷款数据成功"))
+	return shim.Success([]byte("记录工作经历成功"))
 }
 
 func main() {

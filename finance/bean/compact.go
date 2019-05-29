@@ -36,7 +36,7 @@ func Loan(stub shim.ChaincodeStubInterface, args []string, name string) error {
 	if len(args[3]) != 14 {
 		return fmt.Errorf("Parameter CompactStartDate length error while Loan, 14 is right")
 	}
-	if len(args[4]) != 24 {
+	if len(args[4]) != 14 {
 		return fmt.Errorf("Parameter CompactEndDate length error while Loan, 14 is right")
 	}
 	var compact Compact
